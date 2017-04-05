@@ -1,0 +1,155 @@
+<!--
+#***************************************************************************
+# Copyright 2017 IBM
+#
+#   Natural Language Understanding in Node.js
+#
+#   By JeanCarl Bisson (@dothewww)
+#   More info: https://ibm.biz/nodejs-natural-language-understanding
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#***************************************************************************
+-->
+<h1>{{metadata.title}}</h1>
+<table>
+    <tr>
+        <td>Author</td>
+        <td><ul>{{#metadata.authors}}<li>{{name}}</li>{{/metadata.authors}}</ul></td>
+    </tr>
+    <tr>
+        <td>Document Sentiment</td>
+        <td>{{sentiment.document.label}} (Score: {{sentiment.document.score}})</td>
+    </tr>
+    <tr>
+        <td>URL</td>
+        <td><a href="{{retrieved_url}}" target="_blank">{{retrieved_url}}</a></td>
+    </tr>
+    <tr>
+        <td>Published</td>
+        <td>{{metadata.publication_date}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><a href="/story?format=json&url={{retrieved_url}}">View JSON</a></td>
+    </tr>
+</table>
+
+<h2>Entities</h2>
+<table border="1">
+    <tr>
+        <th>Entity</th>
+        <th>Type</th>
+        <th>Relevance</th>
+        <th># Occurrances</th>
+        <th>Sentiment</th>
+        <th>Sadness</th>
+        <th>Joy</th>
+        <th>Fear</th>
+        <th>Disgust</th>
+        <th>Anger</th>
+    </tr>
+    {{#entities}}
+        <tr>
+            <td>{{text}}</td>
+            <td>{{type}}</td>
+            <td>{{relevance}}</td>
+            <td>{{count}}</td>
+            <td>{{sentiment.score}}</td>
+            <td>{{emotion.sadness}}</td>
+            <td>{{emotion.joy}}</td>
+            <td>{{emotion.fear}}</td>
+            <td>{{emotion.disgust}}</td>
+            <td>{{emotion.anger}}</td>
+        </tr>
+    {{/entities}}
+</table>
+
+<h2>Keywords</h2>
+<table border="1">
+    <tr>
+        <th>Keyword</th>
+        <th>Relevance</th>
+        <th>Sentiment</th>
+        <th>Sadness</th>
+        <th>Joy</th>
+        <th>Fear</th>
+        <th>Disgust</th>
+        <th>Anger</th>
+    </tr>
+{{#keywords}}
+    <tr>
+        <td>{{text}}</td>
+        <td>{{relevance}}</td>
+        <td>{{sentiment.score}}</td>
+        <td>{{emotion.sadness}}</td>
+        <td>{{emotion.joy}}</td>
+        <td>{{emotion.fear}}</td>
+        <td>{{emotion.disgust}}</td>
+        <td>{{emotion.anger}}</td>
+    </tr>
+{{/keywords}}
+</table>
+
+<h2>Concepts</h2>
+<table border="1">
+    <tr>
+        <th>Concept</th>
+        <th>Relevance</th>
+        <th>DBpedia</th>
+    </tr>
+{{#concepts}}
+    <tr>
+        <td>{{text}}</td>
+        <td>{{relevance}}</td>
+        <td><a href="{{dbpedia_resource}}" target="_blank">{{dbpedia_resource}}</a></td>
+    </tr>
+{{/concepts}}
+</table>
+
+<h2>Categories</h2>
+<table border="1">
+    <tr>
+        <th>Label</th>
+        <th>Score</th>
+    </tr>
+{{#categories}}
+    <tr>
+        <td>{{label}}</td>
+        <td>{{score}}</td>
+    </tr>
+{{/categories}}
+</table>
+
+<h2>Relations</h2>
+{{#relations}}
+  <h3><i>{{sentence}}</i></h3>
+  <blockquote>{{type}} relation between
+  {{#arguments}}
+    "{{text}}"
+  {{/arguments}}
+  </blockquote>
+{{/relations}}
+
+<h2>Semantic Roles </h2>
+{{#semantic_roles}}
+  <h3><i>{{sentence}}</i></h3>
+  <blockquote>Subject: {{subject.text}}<br />
+  Action: {{action.text}}<br />
+  Object: {{object.text}}</blockquote>
+{{/semantic_roles}}
+
+<h2>Feeds</h2>
+<ul>
+{{#metadata.feeds}}
+  <li><a href="{{feed}}" target="_blank">{{feed}}</a></li>
+{{/metadata.feeds}}
+</ul>
